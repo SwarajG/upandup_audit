@@ -1,6 +1,6 @@
 import usersModel from './../models/usersModel';
 import jwt from 'jsonwebtoken';
-import env from "../env";
+import env from "../config";
 
 const authController = {
     login: (req, res, next) => {

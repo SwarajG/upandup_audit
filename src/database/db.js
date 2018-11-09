@@ -1,24 +1,24 @@
-import mongoose from 'mongoose';
-import env from './../env';
-import autoIncrement from "mongoose-auto-increment";
+const mongoose = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
+const config = require('../config');
 
-mongoose.connect(env.DB_URL, {useMongoClient: true});
+mongoose.connect(config.mongodbUrl, {useMongoClient: true});
 
 autoIncrement.initialize(mongoose.connection);
 
 // When successfully connected
 mongoose.connection.on('connected', function () {
-    console.log('Mongoose default connection open to ' + env.DB_URL);
+  console.log('Mongoose default connection opened');
 });
 
 // If the connection throws an error
 mongoose.connection.on('error', function (err) {
-    console.log('Mongoose default connection error: ' + err);
+  console.log('Mongoose default connection error: ' + err);
 });
 
 // When the connection is disconnected
 mongoose.connection.on('disconnected', function () {
-    console.log('Mongoose default connection disconnected');
+  console.log('Mongoose default connection disconnected');
 });
 
-export default mongoose;
+module.exports = mongoose;
