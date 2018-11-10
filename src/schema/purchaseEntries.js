@@ -4,7 +4,11 @@ const purchaseEntriesSchema = new mongoose.Schema({
 	itemId: {
     type: String,
     required: true
-	},
+  },
+  outletId: {
+    type: String,
+    required: true
+  },
 	itemName: {
     type: String,
     required: true
@@ -23,7 +27,7 @@ const purchaseEntriesSchema = new mongoose.Schema({
   },
 	createAt: {
 		type: Date,
-		default: Date.now
+		required: true
 	}
 });
 

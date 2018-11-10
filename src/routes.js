@@ -45,6 +45,9 @@ const routes = (route) => {
 	route.route('/purchaseEntries')
 		.get(purchaseEntriesController.getAll)
 		.post(purchaseEntriesController.create);
+	
+	route.route('/purchaseEntries/on-date')
+		.post(purchaseEntriesController.getForDate)
 		
 	route.route('/inventoryCouting')
 		.get(inventoryCoutingController.getAll)

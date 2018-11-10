@@ -1,4 +1,5 @@
 const purchaseEntries = require('../models/purchaseEntriesModel');
+const moment = require('moment');
 
 const purchaseEntriesController = {
 
@@ -12,6 +13,24 @@ const purchaseEntriesController = {
 	getOne: (req, res, next) => {
 		purchaseEntries.findById(req.params.id, (err, purchaseEntrie) => {
 			res.json(purchaseEntrie || {});
+		});
+	},
+
+	getForDate: async (req, res, next) => {
+		const { date, outletId } = req.body;
+		const formatedDate = moment(date).format('YYYY-MM-DD');
+		const [ year, month, dateOfMonth ] = formatedDate.split('-');
+		const tomorrow = moment().add(1, 'd').format('YYYY-MM-DD');
+		const [ tomorrowYear, tomorrowMonth, tomorrowDateOfMonth ] = tomorrow.split('-');
+		purchaseEntries.find({
+			outletId,
+			createAt: {
+				$lt: new Date(tomorrowYear, tomorrowMonth - 1, tomorrowDateOfMonth),
+				$gt: new Date(year, month - 1, dateOfMonth)
+			}
+		}, (err, purchaseEntrie) => {
+			if (err) return res.json(err);
+			res.json(purchaseEntrie);
 		});
 	},
 
