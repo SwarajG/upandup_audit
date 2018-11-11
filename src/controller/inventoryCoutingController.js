@@ -15,6 +15,17 @@ const inventoryCoutingController = {
 		});
 	},
 
+	getForDate: async (req, res, next) => {
+		const { date, outletId } = req.body;
+		inventoryCoutings.find({
+			outletId,
+			entryDate: date
+		}, (err, purchaseEntrie) => {
+			if (err) return res.json(err);
+			res.json(purchaseEntrie);
+		});
+	},
+
 	create: (req, res, next) => {
 		inventoryCoutings.create(req.body, function (err, inventoryCouting) {
 			if (err) return res.json(err);

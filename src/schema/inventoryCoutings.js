@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
 
 const inventoryCoutingSchema = new mongoose.Schema({
-	stockName: {
+	outletId: {
+		type: String,
+    required: true
+	},
+	itemId: {
+		type: String,
+    required: true
+	},
+	itemName: {
     type: String,
     required: true
 	},
@@ -13,7 +21,11 @@ const inventoryCoutingSchema = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
-	timeStamp: {
+	entryDate: {
+		type: String,
+		required: true
+	},
+	createdAt: {
 		type: Date,
 		default: Date.now
 	}

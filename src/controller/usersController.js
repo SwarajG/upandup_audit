@@ -17,7 +17,6 @@ const usersController = {
 
 	create: (req, res, next) => {
 		usersModel.create(req.body, function (err, user) {
-			console.log(err, user);
 			if (err) return res.json(err);
 			res.json(user)
 		})

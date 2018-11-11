@@ -6,6 +6,7 @@ const packagingMaterialsController = require('./controller/packagingMaterialsCon
 const stockTransferEntriesController = require('./controller/stockTransferEntriesController');
 const purchaseEntriesController = require('./controller/purchaseEntriesController');
 const inventoryCoutingController = require('./controller/inventoryCoutingController');
+const stockItemsController = require('./controller/stockItemController');
 
 
 const routes = (route) => {
@@ -52,6 +53,13 @@ const routes = (route) => {
 	route.route('/inventoryCouting')
 		.get(inventoryCoutingController.getAll)
 		.post(inventoryCoutingController.create);
+	
+	route.route('/inventoryCouting/on-date')
+		.post(inventoryCoutingController.getForDate)
+	
+	route.route('/stockItems')
+		.get(stockItemsController.getAll)
+		.post(stockItemsController.create);
 };
 
 module.exports = routes;
