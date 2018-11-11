@@ -15,6 +15,18 @@ const stockTransferEntriesController = {
 		});
 	},
 
+	getForDate: async (req, res, next) => {
+		const { date, fromOutletId } = req.body;
+		console.log(date, fromOutletId);
+		stockTransferEntries.find({
+			fromOutletId,
+			entryDate: date
+		}, (err, stockTransferEntry) => {
+			if (err) return res.json(err);
+			res.json(stockTransferEntry);
+		});
+	},
+
 	create: (req, res, next) => {
 		stockTransferEntries.create(req.body, function (err, stockTransferEntrie) {
 			if (err) return res.json(err);

@@ -43,9 +43,22 @@ const routes = (route) => {
 		.get(stockTransferEntriesController.getAll)
 		.post(stockTransferEntriesController.create);
 
+	route.route('/stockTransferEntries/:id')
+		.get(stockTransferEntriesController.getOne)
+		.put(stockTransferEntriesController.update)
+		.delete(stockTransferEntriesController.delete);
+	
+	route.route('/stockTransferEntries/on-date')
+		.post(stockTransferEntriesController.getForDate)
+
 	route.route('/purchaseEntries')
 		.get(purchaseEntriesController.getAll)
 		.post(purchaseEntriesController.create);
+
+	route.route('/purchaseEntries/:id')
+		.get(purchaseEntriesController.getOne)
+		.put(purchaseEntriesController.update)
+		.delete(purchaseEntriesController.delete);
 	
 	route.route('/purchaseEntries/on-date')
 		.post(purchaseEntriesController.getForDate)
@@ -53,6 +66,11 @@ const routes = (route) => {
 	route.route('/inventoryCouting')
 		.get(inventoryCoutingController.getAll)
 		.post(inventoryCoutingController.create);
+
+	route.route('/inventoryCouting/:id')
+		.get(inventoryCoutingController.getOne)
+		.put(inventoryCoutingController.update)
+		.delete(inventoryCoutingController.delete);
 	
 	route.route('/inventoryCouting/on-date')
 		.post(inventoryCoutingController.getForDate)
