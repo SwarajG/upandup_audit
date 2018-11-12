@@ -34,7 +34,8 @@ const inventoryCoutingController = {
 	},
 
 	update: (req, res, next) => {
-		inventoryCoutings.findOneAndUpdate(req.params.id, req.body, {
+		inventoryCoutings.findOneAndUpdate({ _id: req.params.id }, req.body, {
+			upsert: true,
 			new: true
 		}, (err, inventoryCouting) => {
 			if (err) return res.json(err);

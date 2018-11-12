@@ -23,7 +23,8 @@ const packagingMaterialsController = {
 	},
 
 	update: (req, res, next) => {
-		packagingMaterials.findOneAndUpdate(req.params.id, req.body, {
+		packagingMaterials.findOneAndUpdate({ _id: req.params.id }, req.body, {
+			upsert: true,
 			new: true
 		}, (err, packagingMaterial) => {
 			if (err) return res.json(err);

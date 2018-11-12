@@ -35,7 +35,8 @@ const purchaseEntriesController = {
 	},
 
 	update: (req, res, next) => {
-		purchaseEntries.findOneAndUpdate(req.params.id, req.body, {
+		purchaseEntries.findOneAndUpdate({ _id: req.params.id }, req.body, {
+			upsert: true,
 			new: true
 		}, (err, purchaseEntrie) => {
 			if (err) return res.json(err);

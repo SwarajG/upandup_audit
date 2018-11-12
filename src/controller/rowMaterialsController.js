@@ -23,7 +23,8 @@ const rowMaterialsController = {
 	},
 
 	update: (req, res, next) => {
-		rowMaterials.findOneAndUpdate(req.params.id, req.body, {
+		rowMaterials.findOneAndUpdate({ _id: req.params.id }, req.body, {
+			upsert: true,
 			new: true
 		}, (err, rowMaterial) => {
 			if (err) return res.json(err);

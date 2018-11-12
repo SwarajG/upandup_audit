@@ -23,7 +23,8 @@ const outletsController = {
 	},
 
 	update: (req, res, next) => {
-		outlets.findOneAndUpdate(req.params.id, req.body, {
+		outlets.findOneAndUpdate({ _id: req.params.id }, req.body, {
+			upsert: true,
 			new: true
 		}, (err, outlet) => {
 			if (err) return res.json(err);

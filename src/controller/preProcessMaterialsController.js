@@ -23,7 +23,8 @@ const preProcessMaterialsController = {
 	},
 
 	update: (req, res, next) => {
-		preProcessMaterials.findOneAndUpdate(req.params.id, req.body, {
+		preProcessMaterials.findOneAndUpdate({ _id: req.params.id }, req.body, {
+			upsert: true,
 			new: true
 		}, (err, preProcessMaterial) => {
 			if (err) return res.json(err);

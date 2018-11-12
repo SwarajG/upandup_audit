@@ -17,7 +17,6 @@ const stockTransferEntriesController = {
 
 	getForDate: async (req, res, next) => {
 		const { date, fromOutletId } = req.body;
-		console.log(date, fromOutletId);
 		stockTransferEntries.find({
 			fromOutletId,
 			entryDate: date

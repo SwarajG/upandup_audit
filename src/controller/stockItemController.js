@@ -24,7 +24,8 @@ const stockItemsController = {
 	},
 
 	update: (req, res, next) => {
-		stockItems.findOneAndUpdate(req.params.id, req.body, {
+		stockItems.findOneAndUpdate({ _id: req.params.id }, req.body, {
+			upsert: true,
 			new: true
 		}, (err, stockItem) => {
 			if (err) return res.json(err);
