@@ -9,6 +9,7 @@ const inventoryCoutingController = require('./controller/inventoryCoutingControl
 const stockItemsController = require('./controller/stockItemController');
 
 
+// routes
 const routes = (route) => {
 	route.get('/', (req, res) => {
 		res.send(`App server in running (${new Date()})`);
