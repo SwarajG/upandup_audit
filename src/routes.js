@@ -7,6 +7,7 @@ const stockTransferEntriesController = require('./controller/stockTransferEntrie
 const purchaseEntriesController = require('./controller/purchaseEntriesController');
 const inventoryCoutingController = require('./controller/inventoryCoutingController');
 const stockItemsController = require('./controller/stockItemController');
+const attendanceEntriesController = require('./controller/attendanceEntries');
 
 
 // routes
@@ -75,6 +76,18 @@ const routes = (route) => {
 	
 	route.route('/inventoryCouting/on-date')
 		.post(inventoryCoutingController.getForDate)
+
+	route.route('/attendanceEntries')
+		.get(attendanceEntriesController.getAll)
+		.post(attendanceEntriesController.create);
+
+	route.route('/attendanceEntries/:id')
+		.get(attendanceEntriesController.getOne)
+		.put(attendanceEntriesController.update)
+		.delete(attendanceEntriesController.delete);
+	
+	route.route('/attendanceEntries/on-date')
+		.post(attendanceEntriesController.getForDate)
 	
 	route.route('/stockItems')
 		.get(stockItemsController.getAll)

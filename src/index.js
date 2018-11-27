@@ -1,10 +1,3 @@
-// import express from 'express';
-// import 'babel-polyfill';
-// import './database/db';
-// import env from './env';
-// import routes from './routes';
-// import bodyParser from 'body-parser'
-
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
