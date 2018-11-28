@@ -7,7 +7,8 @@ const stockTransferEntriesController = require('./controller/stockTransferEntrie
 const purchaseEntriesController = require('./controller/purchaseEntriesController');
 const inventoryCoutingController = require('./controller/inventoryCoutingController');
 const stockItemsController = require('./controller/stockItemController');
-const attendanceEntriesController = require('./controller/attendanceEntries');
+const attendanceEntriesController = require('./controller/attendanceEntriesController');
+const staffFoodEntriesController = require('./controller/staffFoodEntriesController');
 
 
 // routes
@@ -87,7 +88,19 @@ const routes = (route) => {
 		.delete(attendanceEntriesController.delete);
 	
 	route.route('/attendanceEntries/on-date')
-		.post(attendanceEntriesController.getForDate)
+		.post(attendanceEntriesController.getForDate);
+
+	route.route('/staffFoodEntries')
+		.get(staffFoodEntriesController.getAll)
+		.post(staffFoodEntriesController.create);
+
+	route.route('/staffFoodEntries/:id')
+		.get(staffFoodEntriesController.getOne)
+		.put(staffFoodEntriesController.update)
+		.delete(staffFoodEntriesController.delete);
+	
+	route.route('/staffFoodEntries/on-date')
+		.post(staffFoodEntriesController.getForDate)
 	
 	route.route('/stockItems')
 		.get(stockItemsController.getAll)
