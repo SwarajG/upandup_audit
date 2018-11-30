@@ -5,7 +5,7 @@ const staffFoodEntriesSchema = new mongoose.Schema({
 		type: String,
 		required: true
   },
-  foodTime: {
+  mealType: {
     type: String,
 		required: true
   },
@@ -17,11 +17,15 @@ const staffFoodEntriesSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	food_time: {
+	foodTime: {
 		type: String,
 		required: true
 	},
 	itemName: {
+		type: String,
+		required: true
+	},
+	entryDate: {
 		type: String,
 		required: true
 	},

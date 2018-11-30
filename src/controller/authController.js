@@ -10,8 +10,8 @@ const authController = {
             if (user !== null) {
                 const token = jwt.sign({
                     email: user.email,
-                    first_name: user.first_name,
-                    last_name: user.last_name
+                    firstName: user.firstName,
+                    lastName: user.lastName
                 }, env.App_key);
                 res.json({token})
             } else {

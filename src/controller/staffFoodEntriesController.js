@@ -28,7 +28,11 @@ const staffFoodEntriesController = {
 
 	create: (req, res, next) => {
 		staffFoodEntries.create(req.body, (err, staffFoodEntry) => {
-			if (err) return res.json(err);
+			if (err) {
+				console.log(err);
+				return res.json(err);
+			}
+			console.log(staffFoodEntry);
 			res.json(staffFoodEntry)
 		})
 	},
