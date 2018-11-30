@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+const userEntries = require('../models/usersModel');
 const staffFoodEntries = require('../models/staffFoodEntriesModel');
 
 const staffFoodEntriesController = {
@@ -22,17 +24,27 @@ const staffFoodEntriesController = {
 			entryDate: date
 		}, (err, filteredStaffFoodEntries) => {
 			if (err) return res.json(err);
-			res.json(filteredStaffFoodEntries);
+			const users = filteredStaffFoodEntries.map(entry => mongoose.Types.ObjectId(entry.userId));
+			userEntries.find({
+				'_id': { $in: users}
+			}, (err, users) => {
+				const combinedData = filteredStaffFoodEntries.map((entry) => {
+					const user = users.find(user => user._id.toString() === entry.userId).toJSON();
+					return {
+						...entry.toJSON(),
+						firstName: user.firstName,
+						lastName: user.lastName,
+						email: user.email
+					};
+				});
+				res.json(combinedData);
+			});
 		});
 	},
 
 	create: (req, res, next) => {
 		staffFoodEntries.create(req.body, (err, staffFoodEntry) => {
-			if (err) {
-				console.log(err);
-				return res.json(err);
-			}
-			console.log(staffFoodEntry);
+			if (err) return res.json(err);
 			res.json(staffFoodEntry)
 		})
 	},

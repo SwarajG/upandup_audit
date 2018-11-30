@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+const userEntries = require('../models/usersModel');
 const stockTransferEntries = require('../models/stockTransferEntriesModel');
 
 const stockTransferEntriesController = {
@@ -20,9 +22,23 @@ const stockTransferEntriesController = {
 		stockTransferEntries.find({
 			fromOutletId,
 			entryDate: date
-		}, (err, stockTransferEntry) => {
+		}, (err, filteredStockTransferEntry) => {
 			if (err) return res.json(err);
-			res.json(stockTransferEntry);
+			const users = filteredStockTransferEntry.map(entry => mongoose.Types.ObjectId(entry.userId));
+			userEntries.find({
+				'_id': { $in: users}
+			}, (err, users) => {
+				const combinedData = filteredStockTransferEntry.map((entry) => {
+					const user = users.find(user => user._id.toString() === entry.userId).toJSON();
+					return {
+						...entry.toJSON(),
+						firstName: user.firstName,
+						lastName: user.lastName,
+						email: user.email
+					};
+				});
+				res.json(combinedData);
+			});
 		});
 	},
 

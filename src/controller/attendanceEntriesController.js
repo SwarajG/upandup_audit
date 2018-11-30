@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+const userEntries = require('../models/usersModel');
 const attendanceEntries = require('../models/attendanceEntriesModel');
 
 const attendanceEntryController = {
@@ -22,13 +24,26 @@ const attendanceEntryController = {
 			entryDate: date
 		}, (err, filteredAttendanceEntries) => {
 			if (err) return res.json(err);
-			res.json(filteredAttendanceEntries);
+			const users = filteredAttendanceEntries.map(entry => mongoose.Types.ObjectId(entry.userId));
+			userEntries.find({
+				'_id': { $in: users}
+			}, (err, users) => {
+				const combinedData = filteredAttendanceEntries.map((entry) => {
+					const user = users.find(user => user._id.toString() === entry.userId).toJSON();
+					return {
+						...entry.toJSON(),
+						firstName: user.firstName,
+						lastName: user.lastName,
+						email: user.email
+					};
+				});
+				res.json(combinedData);
+			});
 		});
 	},
 
 	create: (req, res, next) => {
 		attendanceEntries.create(req.body, (err, attendanceEntry) => {
-			console.log(req.body);
 			if (err) return res.json(err);
 			res.json(attendanceEntry)
 		})

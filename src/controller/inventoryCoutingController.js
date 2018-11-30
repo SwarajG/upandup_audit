@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+const userEntries = require('../models/usersModel');
 const inventoryCoutings = require('../models/inventoryCoutingModel');
 
 const inventoryCoutingController = {
@@ -20,10 +22,25 @@ const inventoryCoutingController = {
 		inventoryCoutings.find({
 			outletId,
 			entryDate: date
-		}, (err, purchaseEntrie) => {
+		}, (err, filteredPurchaseEntrie) => {
 			if (err) return res.json(err);
-			res.json(purchaseEntrie);
+			const users = filteredPurchaseEntrie.map(entry => mongoose.Types.ObjectId(entry.userId));
+			userEntries.find({
+				'_id': { $in: users}
+			}, (err, users) => {
+				const combinedData = filteredPurchaseEntrie.map((entry) => {
+					const user = users.find(user => user._id.toString() === entry.userId).toJSON();
+					return {
+						...entry.toJSON(),
+						firstName: user.firstName,
+						lastName: user.lastName,
+						email: user.email
+					};
+				});
+				res.json(combinedData);
+			})
 		});
+		
 	},
 
 	create: (req, res, next) => {
