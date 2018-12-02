@@ -29,12 +29,14 @@ const inventoryCoutingController = {
 				'_id': { $in: users}
 			}, (err, users) => {
 				const combinedData = filteredPurchaseEntrie.map((entry) => {
-					const user = users.find(user => user._id.toString() === entry.userId).toJSON();
+					const user = users.find(user => user._id.toString() === entry.userId);
+					const jsonUser = user && user.toJSON() || [];
+					const jsonEntry = entry && entry.toJSON() || {};
 					return {
-						...entry.toJSON(),
-						firstName: user.firstName,
-						lastName: user.lastName,
-						email: user.email
+						...jsonEntry,
+						firstName: jsonUser.firstName,
+						lastName: jsonUser.lastName,
+						email: jsonUser.email
 					};
 				});
 				res.json(combinedData);
