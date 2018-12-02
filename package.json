@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Node Application based on express js with es6 and integrated with mongodb",
   "main": "src/index.js",
+  "engines" : {
+    "node" : ">=8.12.0",
+    "npm": ">6.4.1"
+  },
   "scripts": {
     "start": "nodemon",
     "build-dev": "babel --watch src --out-dir dist --source-maps",
